@@ -11,7 +11,7 @@ npm install nightwatch-axe-verbose -save
 ```
 In nightwatch.json add this entry:
 ```
-"custom_commands_path": ["./node_modules/nightwatch-axe/src/commands"]
+"custom_commands_path": ["./node_modules/nightwatch-axe-verbose/src/commands"]
 ```
 
 ## axeInject()
