@@ -3,7 +3,7 @@ Verbose error reporting for axe accessibility rule violations to use in Nightwat
 
 This fork of nightwatch-axe is more verbose in that it will report each passing rule run and how many elements it was run against. In addition, each rule failure will be counted individually against each failing element so downstream failures are not hidden.
 
-Nightwatch.js custom commands for aXe.
+Nightwatch.js custom commands for aXe allowing Nightwatch to be used as an [automated accessibility testing tool](https://www.davidmello.com/accessibility-testing-with-nightwatchjs/).
 
 ## Installation instructions
 ```
