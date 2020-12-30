@@ -3,14 +3,14 @@ Verbose error reporting for axe accessibility rule violations to use in Nightwat
 
 This fork of nightwatch-axe is more verbose in that it will report each passing rule run and how many elements it was run against. In addition, each rule failure will be counted individually against each failing element so downstream failures are not hidden.
 
-Nightwatch.js custom commands for aXe.
+Nightwatch.js custom commands for aXe allowing Nightwatch to be used as an [automated accessibility testing tool](https://www.davidmello.com/accessibility-testing-with-nightwatchjs/).
 
 ## Installation instructions
-```
+```sh
 npm install nightwatch-axe-verbose -save
 ```
 In nightwatch.json add this entry:
-```
+```sh
 "custom_commands_path": ["./node_modules/nightwatch-axe-verbose/src/commands"]
 ```
 
@@ -24,7 +24,7 @@ Analyzes the current page against applied axe rules
 
 AxeRun takes as a first parameter the selector of the element you want to run the axe test against. If you do it on a larger containing element such as the body all the inner elements will be scanned.
 
-```
+```js
 module.exports = {
     '@tags': ['accessibility'],
     'ensure site is accessible': function (browser) {
@@ -41,13 +41,13 @@ module.exports = {
 ## Example output
 
 Passes
-```
+```sh
 √ Passed [ok]: aXe rule: aria-hidden-body (1 elements checked)
 √ Passed [ok]: aXe rule: color-contrast (62 elements checked)
 √ Passed [ok]: aXe rule: duplicate-id-aria (1 elements checked)
 ```
 Failures
-```
+```sh
 × Failed [fail]: (aXe rule: button-name - Buttons must have discernible text
         In element: .departure-date > .ui-datepicker-trigger:nth-child(4))
 
