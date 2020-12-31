@@ -44,7 +44,7 @@ module.exports.command = function axeRun(selector = 'html', options = {}) {
 
               let assertionFailureMessage =
                   `aXe rule: ${violations[i].id} - ${violations[i].help}\r\n\tIn element: ${nodeName}`;
-              this.verify.fail(assertionFailureMessage);
+              this.verify.ok(false, assertionFailureMessage);
           }
       }
   })
