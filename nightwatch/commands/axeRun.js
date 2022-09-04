@@ -24,13 +24,13 @@ module.exports = class AxeRun {
 
     const { passes = [], violations = [] } = results;
 
-    const Asserts = passes.map((pass) =>
+    passes.forEach((pass) =>
       this.api.assert.ok(
         true,
         `aXe rule: ${pass.id} (${pass.nodes.length} elements checked)`
       )
     );
-    const failures = violations.map((violate) => {
+    violations.forEach((violate) => {
       let nodeName = violate.nodes[n].target.toString();
       if (nodeName.length > 100) {
         nodeName = '...' + nodeName.slice(-100);
@@ -40,6 +40,6 @@ module.exports = class AxeRun {
       return this.api.verify.fail(assertionFailureMessage);
     });
 
-    return await Promise.all([...Asserts, ...failures]);
+    return this.api;
   }
 };
