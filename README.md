@@ -1,4 +1,5 @@
 # nightwatch-axe-verbose
+[![Node.js CI](https://github.com/reallymello/nightwatch-axe-verbose/actions/workflows/node.js.yml/badge.svg)](https://github.com/reallymello/nightwatch-axe-verbose/actions/workflows/node.js.yml)
 
 Verbose error reporting for axe accessibility rule violations to use in NightwatchJS
 
