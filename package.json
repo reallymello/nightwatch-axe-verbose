@@ -4,7 +4,9 @@
   "description": "For adding custom commands to allow you to run axe accessibility tests in your NightwatchJS test cases.",
   "main": "index.js",
   "scripts": {
-    "test": "rimraf ./tests_output/ && npx nightwatch --env headless"
+    "test": "rimraf ./tests_output/ && npx nightwatch --env headless",
+    "lint": "eslint ./nightwatch/** ./tests/**",
+    "lint:fix": "eslint ./nightwatch/** ./tests/** --fix"
   },
   "repository": {
     "type": "git",
@@ -29,7 +31,9 @@
     "eslint": "^8.23.1",
     "eslint-config": "^0.3.0",
     "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-prettier": "^4.2.1",
     "nightwatch": "2.3.5",
     "prettier": "^2.7.1"
   }
