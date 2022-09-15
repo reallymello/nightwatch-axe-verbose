@@ -105,3 +105,6 @@ dist
 
 # JetBrains IDEs
 .idea/
+
+# Nightwatch output
+tests_output

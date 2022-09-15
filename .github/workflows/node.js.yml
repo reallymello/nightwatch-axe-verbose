@@ -1,0 +1,38 @@
+# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+
+name: Node.js CI
+
+on:
+  push:
+    branches: ['main']
+  pull_request:
+    branches: ['main']
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    env:
+      MAILTRAP_API_TOKEN: ${{ secrets.MAILTRAP_API_TOKEN }}
+      MAILTRAP_MAILBOX_ID: ${{ secrets.MAILTRAP_MAILBOX_ID }}
+
+    strategy:
+      matrix:
+        node-version: [14.x, 16.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
+    steps:
+      #- uses: browser-actions/setup-chrome@v0.0.0
+      #  with:
+      #    chromium-version: latest
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+      - run: npm install chromedriver@104
+      - run: npm install
+      - run: npm run lint
+      - run: npm test
