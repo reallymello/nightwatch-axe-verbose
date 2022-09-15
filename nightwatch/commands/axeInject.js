@@ -25,7 +25,8 @@ const axe = fs.existsSync(localPath)
 module.exports = class AxeInject {
   command() {
     return this.api.execute(
-      function (js) {
+      (js) => {
+        // eslint-disable-next-line no-eval
         eval(js);
       },
       [axe]
