@@ -5,7 +5,7 @@ module.exports = {
       .assert.titleEquals('Welcome to CityLights! [Accessible Home Page]')
       .axeInject()
       .axeRun('body', {
-        runOnly: ['color-contrast', 'image-alt'],
+        // runOnly: ['color-contrast', 'image-alt'],
       })
       .end();
   },
