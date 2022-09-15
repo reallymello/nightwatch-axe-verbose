@@ -8,6 +8,9 @@
     "lint": "eslint ./nightwatch/** ./tests/**",
     "lint:fix": "eslint ./nightwatch/** ./tests/** --fix"
   },
+  "files": [
+    "nightwatch/**/*"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/reallymello/nightwatch-axe-verbose.git"
