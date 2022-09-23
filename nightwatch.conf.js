@@ -20,13 +20,12 @@ module.exports = {
   page_objects_path: ['page-objects'],
 
   // See https://nightwatchjs.org/guide/extending-nightwatch/adding-custom-commands.html
-  custom_commands_path: ['nightwatch/commands'],
 
   // See https://nightwatchjs.org/guide/extending-nightwatch/adding-custom-assertions.html
   custom_assertions_path: [],
 
   // See https://nightwatchjs.org/guide/extending-nightwatch/adding-plugins.html
-  // plugins: [],
+  plugins: ['./test_plugin.js'],
 
   // See https://nightwatchjs.org/guide/concepts/test-globals.html
   globals_path: '',
