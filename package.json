@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "rimraf ./tests_output/ && npx nightwatch --env headless",
-    "lint": "eslint ./nightwatch/**",
+    "lint": "eslint ./nightwatch/** ./tests/**",
     "lint:fix": "eslint ./nightwatch/** ./tests/** --fix"
   },
   "files": [

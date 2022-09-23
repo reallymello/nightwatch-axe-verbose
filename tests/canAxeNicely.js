@@ -1,5 +1,4 @@
-describe('axe nightwatch integration tests', function() {
-
+describe('axe nightwatch integration tests', () => {
   afterEach((browser) => {
     browser.end();
   });
@@ -9,29 +8,51 @@ describe('axe nightwatch integration tests', function() {
       .url('https://www.w3.org/WAI/demos/bad/after/home.html')
       .assert.titleEquals('Welcome to CityLights! [Accessible Home Page]')
       .axeInject()
-      .axeRun('body', {
-        runOnly: ['color-contrast', 'image-alt'],
-      }, function(results) {
-        browser.assert.ok('violations' in results, 'axe results are available in the callback');
-      }).perform(() => {
-        browser.assert.strictEqual(browser.currentTest.results.assertions.length, 4, 'There are 4 assertons performed');
+      .axeRun(
+        'body',
+        {
+          runOnly: ['color-contrast', 'image-alt'],
+        },
+        (results) => {
+          browser.assert.ok(
+            'violations' in results,
+            'axe results are available in the callback'
+          );
+        }
+      )
+      .perform(() => {
+        browser.assert.strictEqual(
+          browser.currentTest.results.assertions.length,
+          4,
+          'There are 4 assertons performed'
+        );
       });
   });
 
   it('Run axe without assertions', (browser) => {
-
     browser
       .url('https://www.w3.org/WAI/demos/bad/after/home.html')
       .assert.titleEquals('Welcome to CityLights! [Accessible Home Page]')
       .axeInject()
-      .axeRun('body', {
-        runAssertions: false,
-        runOnly: ['color-contrast', 'image-alt'],
-      }, function(results) {
-        browser.assert.ok('violations' in results, 'axe results are available in the callback');
-      })
+      .axeRun(
+        'body',
+        {
+          runAssertions: false,
+          runOnly: ['color-contrast', 'image-alt'],
+        },
+        (results) => {
+          browser.assert.ok(
+            'violations' in results,
+            'axe results are available in the callback'
+          );
+        }
+      )
       .perform(() => {
-        browser.assert.strictEqual(browser.currentTest.results.assertions.length, 2, 'There are 2 assertons performed');
+        browser.assert.strictEqual(
+          browser.currentTest.results.assertions.length,
+          2,
+          'There are 2 assertons performed'
+        );
       });
   });
 
