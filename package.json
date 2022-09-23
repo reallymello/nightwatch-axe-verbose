@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "rimraf ./tests_output/ && npx nightwatch --env headless",
-    "lint": "eslint ./nightwatch/** ./tests/**",
+    "lint": "eslint ./nightwatch/**",
     "lint:fix": "eslint ./nightwatch/** ./tests/** --fix"
   },
   "files": [
@@ -37,7 +37,7 @@
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-prettier": "^4.2.1",
-    "nightwatch": "2.3.5",
+    "nightwatch": "2.3.7",
     "prettier": "^2.7.1"
   }
 }

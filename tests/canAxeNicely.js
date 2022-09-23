@@ -1,17 +1,42 @@
-module.exports = {
-  afterEach(browser) {
+describe('axe nightwatch integration tests', function() {
+  let assertionsNo = 0;
+
+  afterEach((browser) => {
     browser.end();
-  },
-  'Accessible rule subset will pass on friendly site': (browser) => {
+  });
+
+  it('Accessible rule subset will pass on friendly site', (browser) => {
     browser
       .url('https://www.w3.org/WAI/demos/bad/after/home.html')
       .assert.titleEquals('Welcome to CityLights! [Accessible Home Page]')
       .axeInject()
       .axeRun('body', {
         runOnly: ['color-contrast', 'image-alt'],
+      }, function(results) {
+        browser.assert.ok('violations' in results, 'axe results are available in the callback');
+      }).perform(() => {
+        browser.assert.strictEqual(browser.currentTest.results.assertions.length, 4, 'There are 4 assertons performed');
       });
-  },
-  'Can use command from page objects': (browser) => {
+  });
+
+  it('Run axe without assertions', (browser) => {
+
+    browser
+      .url('https://www.w3.org/WAI/demos/bad/after/home.html')
+      .assert.titleEquals('Welcome to CityLights! [Accessible Home Page]')
+      .axeInject()
+      .axeRun('body', {
+        runAssertions: false,
+        runOnly: ['color-contrast', 'image-alt'],
+      }, function(results) {
+        browser.assert.ok('violations' in results, 'axe results are available in the callback');
+      })
+      .perform(() => {
+        browser.assert.strictEqual(browser.currentTest.results.assertions.length, 2, 'There are 2 assertons performed');
+      });
+  });
+
+  it('Can use command from page objects', (browser) => {
     browser.page
       .home()
       .navigate()
@@ -27,5 +52,5 @@ module.exports = {
           },
         },
       });
-  },
-};
+  });
+});
