@@ -1,4 +1,16 @@
+const path = require('path');
+const mockery = require('mockery');
+
 module.exports = {
+  before() {
+    mockery.enable();
+    mockery.warnOnUnregistered(false);
+    mockery.registerMock('nightwatch-axe-verbose', path.join(__dirname, '../'));
+  },
+  after() {
+    mockery.deregisterAll();
+    mockery.disable();
+  },
   afterEach(browser) {
     browser.end();
   },
