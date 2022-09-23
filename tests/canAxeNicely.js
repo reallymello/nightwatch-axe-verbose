@@ -1,8 +1,9 @@
 describe('axe nightwatch integration tests', function() {
-  let assertionsNo = 0;
-
+ 
   afterEach((browser) => {
     browser.end();
+    mockery.deregisterAll();
+    mockery.disable();
   });
 
   it('Accessible rule subset will pass on friendly site', (browser) => {
