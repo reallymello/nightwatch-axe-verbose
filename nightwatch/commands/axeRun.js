@@ -1,11 +1,15 @@
 const axeInjectFn = require('./_axeInjectFn');
 
 module.exports = class AxeRun {
-  command(selector = 'html', options = {}, callback = function cb() {}) {
-    this.api.executeAsync(axeInjectFn, [selector, options], (response) => {
+  async command(selector = 'html', options = {}, callback = function cb() {}) {
+    let returnValue;
+    try {
+      const results = await this.api.executeAsync(axeInjectFn, [
+        selector,
+        options,
+      ]);
       const runAssertions =
         options.runAssertions || typeof options.runAssertions === 'undefined';
-      const { results } = response.value;
       const { passes = [], violations = [] } = results;
 
       if (runAssertions) {
@@ -26,10 +30,14 @@ module.exports = class AxeRun {
           }
         }
       }
-
-      callback(results);
-    });
-
-    return this;
+      returnValue = results;
+    } catch (err) {
+      returnValue = {
+        status: -1,
+        error: err.message,
+      };
+    }
+    callback.call(this.api, returnValue);
+    return returnValue;
   }
 };

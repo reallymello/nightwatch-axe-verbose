@@ -2,9 +2,7 @@
 module.exports = function (selector, options, done) {
   var axe = window.axe;
   if (!axe) {
-    done({
-      error: 'aXe not found. Make sure it has been injected',
-    });
+    done(new Error('aXe not found. Make sure it has been injected'))
     return;
   }
 
@@ -12,12 +10,9 @@ module.exports = function (selector, options, done) {
 
   axe.run(el, options, function (err, results) {
     if (err) {
-      done({
-        error: err.toString(),
-      });
-      return;
+      done(err);
     }
 
-    done({results: results});
+    done(results);
   });
 };

@@ -73,4 +73,18 @@ describe('axe nightwatch integration tests', () => {
         },
       });
   });
+
+  it('can use axe command from async function', async (browser) => {
+    const results = await browser
+      .url('https://www.w3.org/WAI/demos/bad/after/home.html')
+      .assert.titleEquals('Welcome to CityLights! [Accessible Home Page]')
+      .axeInject()
+      .axeRun('body', {
+        runOnly: ['color-contrast', 'image-alt'],
+      });
+    browser.assert.ok(
+      'violations' in results,
+      'axe results are available in the result'
+    );
+  });
 });
