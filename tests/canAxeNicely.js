@@ -74,7 +74,7 @@ describe('axe nightwatch integration tests', () => {
       });
   });
 
-  it(' can use axe command from async function', async (browser) => {
+  it('can use axe command from async function', async (browser) => {
     const results = await browser
       .url('https://www.w3.org/WAI/demos/bad/after/home.html')
       .assert.titleEquals('Welcome to CityLights! [Accessible Home Page]')
