@@ -27,7 +27,7 @@
   },
   "homepage": "https://github.com/reallymello/nightwatch-axe-verbose#readme",
   "dependencies": {
-    "axe-core": "^4.6.1"
+    "axe-core": "^4.6.3"
   },
   "devDependencies": {
     "chromedriver": "^108.0.0",
