@@ -81,3 +81,60 @@ Failures
         In element: a[href="mars2\.html\?a\=be_bold"] > h3)
 
 ```
+
+## Default Run Settings
+
+If no parameter inputs are supplied to .axeRun() it will default to the `html` context (scan all elements on the page) and run with all the default rule options from axe.
+
+## Global Configuration
+
+axeRun can read the selector context and/or run options from the Nightwatch globals collection so that they don't need to be passed in during each test if you have a globally applicable customized non-default scanning preference. These settings are expected under `axeSettings` and can contain `context` and/or `options` properties containing axe-core context and option settings respectively.
+
+If a selector context is passed in to axeRun by the test it will override, take precedence over, the global setting. Global option properties not supplied by the test will be merged together with the ones provides by the test. The test-supplied value will be used in the case of same-named properties.
+
+```js
+// nightwatch.conf.js
+test_settings: {
+    default: {
+        globals: {
+                axeSettings: {
+                        context: { exclude: '.ad-banner' },
+                        options: { rules: { 'color-contrast': { enabled: false }, }
+                }
+        }
+    }
+}
+```
+
+The above example sets these on the default global configuration. If you set these in the non-default test settings you can have multiple different axeSettings per environment configuration if you prefer.
+
+Given this example global configuration one could expect the following.
+
+#### Example 1
+
+`.axeRun()` ➡️ Run against all page elements except for ones with or inside the .ad-banner class applied. Use all rules except color-contrast.
+
+#### Example 2
+
+`.axeRun('body')` ➡️ Run against all page elements contained inside the body element. Use all rules except color-contrast.
+
+#### Example 3
+
+```js
+.axeRun('body', {
+        rules: {
+          'nested-interactive': {
+            enabled: false,
+          },
+          'select-name': {
+            enabled: true,
+          },
+        },
+})
+```
+
+➡️ Run against all page elements contained inside the body element. Use all rules except nested-interactive. Note, this overrides the global setting against color-contrast since both provide a value for `rules` and the one supplied from the test takes precedence.
+
+#### Example 4
+
+`.axeRun('body', { otherValidAxeSetting: { something: true }})` ➡️ Run against all page elements contained inside the body element. Run with the `rules` settings supplied from the global configuration (disable color contrast), since the `rules` setting was not supplied by the test, and additionally include/use `otherValidAxeSetting` supplied by the test.
