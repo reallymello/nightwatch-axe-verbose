@@ -1,6 +1,6 @@
 {
   "name": "nightwatch-axe-verbose",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "description": "For adding custom commands to allow you to run axe accessibility tests in your NightwatchJS test cases.",
   "main": "index.js",
   "scripts": {
