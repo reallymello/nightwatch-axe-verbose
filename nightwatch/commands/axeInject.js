@@ -1,5 +1,4 @@
 const fs = require('fs');
-const path = require('path');
 
 const axePath = require.resolve('axe-core/axe.min.js');
 const axe = fs.readFileSync(axePath, 'utf8');
