@@ -1,4 +1,4 @@
-const axeInjectFn = require('./_axeInjectFunc');
+const axeInjectFn = require('./axeInjectFunc');
 
 module.exports = class AxeRun {
   async command(selector = null, options = {}, callback = function cb() {}) {

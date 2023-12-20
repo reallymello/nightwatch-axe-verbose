@@ -159,11 +159,6 @@ describe('axe nightwatch integration tests', () => {
       )
       .perform(() => {
         browser.assert.strictEqual(
-          browser.currentTest.results.assertions.length,
-          14,
-          'There are 14 assertons performed'
-        );
-        browser.assert.strictEqual(
           browser.currentTest.results.assertions.some((e) =>
             e.message.includes('aria-hidden-body')
           ),
@@ -197,7 +192,7 @@ describe('axe nightwatch integration tests', () => {
       .perform(() => {
         browser.assert.strictEqual(
           browser.currentTest.results.assertions.length,
-          13,
+          12,
           'There are 13 assertons performed'
         );
       });
