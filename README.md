@@ -98,8 +98,7 @@ test_settings: {
     default: {
         globals: {
                 axeSettings: {
-                        context: { exclude: '.ad-banner' },
-                        options: { rules: { 'color-contrast': { enabled: false }, }
+                        context: 'html',
                 }
         }
     }
