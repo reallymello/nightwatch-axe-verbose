@@ -79,6 +79,32 @@ describe('axe nightwatch integration tests', () => {
       });
   });
 
+  it('Can pass exclude in an object', (browser) => {
+    browser
+      .url('https://www.w3.org/WAI/demos/bad/before/home.html')
+      .assert.titleEquals('Welcome to CityLights! [Inaccessible Home Page]')
+      .axeInject()
+      .axeRun(
+        { exclude: ['img', 'td'] },
+        {
+          runOnly: ['image-alt', 'aria-hidden-body', 'color-contrast'],
+        },
+        (results) => {
+          browser.assert.ok(
+            'violations' in results,
+            'axe results are available in the callback'
+          );
+        }
+      )
+      .perform(() => {
+        browser.assert.strictEqual(
+          browser.currentTest.results.assertions.length,
+          4,
+          'There were 4 assertons performed'
+        );
+      });
+  });
+
   it('can use axe command from async function', async (browser) => {
     const results = await browser
       .url('https://www.w3.org/WAI/demos/bad/after/home.html')
