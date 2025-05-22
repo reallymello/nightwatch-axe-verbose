@@ -27,7 +27,7 @@
   },
   "homepage": "https://github.com/reallymello/nightwatch-axe-verbose#readme",
   "dependencies": {
-    "axe-core": "^4.9.1"
+    "axe-core": "^4.10.3"
   },
   "devDependencies": {
     "eslint": "^8.23.1",
