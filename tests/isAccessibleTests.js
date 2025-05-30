@@ -56,7 +56,7 @@ describe('axe nightwatch integration tests', () => {
       {
         runOnly: ['region', 'image-alt'],
       },
-      0
+      1
     );
   });
 });

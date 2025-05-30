@@ -39,9 +39,13 @@ If you are using an older Nightwatch version or prefer the prior custom_commands
 
 Injects the axe-core js library into your test page
 
-## axeRun(options)
+## axeRun(selector, options)
 
 Analyzes the current page against applied axe rules
+
+## assert.isAccessible(selector, options, expectedViolationCount)
+
+Same as axeRun, but uses the Nightwatch assertion library instead of using a command which will allow better stack traces to appear in the Nightwatch HTML report. `expectedViolationCount` is optional and defaults to 0, but can be set to a number greater than 0 to allow for up to the provided number of rule violations.
 
 ## Example test
 
@@ -80,6 +84,34 @@ Failures
 × Failed [fail]: (aXe rule: color-contrast - Elements must have sufficient color contrast
         In element: a[href="mars2\.html\?a\=be_bold"] > h3)
 
+```
+
+## Example test using assert.isAccessible
+
+```ts
+it('Can check for tabindex rules', (browser) => {
+  browser
+    .url('https://dequeuniversity.com/demo/mars/')
+    .axeInject()
+    .assert.isAccessible('body', {
+      runOnly: ['tabindex'],
+    });
+});
+```
+
+### Example output
+
+```sh
+   Testing if elements within <body> don't contain accessibility rule violations - expected "is '0'" but got: "1 rule violation (details below)
+
+   aXe rule [serious]: tabindex - Elements should not have tabindex greater than zero [https://dequeuniversity.com/rules/axe/4.10/tabindex?application=axeAPI]
+        In element: #from0
+   aXe rule [serious]: tabindex - Elements should not have tabindex greater than zero [https://dequeuniversity.com/rules/axe/4.10/tabindex?application=axeAPI]
+        In element: #to0
+   aXe rule [serious]: tabindex - Elements should not have tabindex greater than zero [https://dequeuniversity.com/rules/axe/4.10/tabindex?application=axeAPI]
+        In element: #deptDate0
+   aXe rule [serious]: tabindex - Elements should not have tabindex greater than zero [https://dequeuniversity.com/rules/axe/4.10/tabindex?application=axeAPI]
+        In element: #time0" (576ms)
 ```
 
 ## Default Run Settings
