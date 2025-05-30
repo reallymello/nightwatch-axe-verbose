@@ -4,14 +4,10 @@ exports.assertion = function (
   expectedViolations = 0
 ) {
   const originalTimeoutSetting = this.retryAssertionTimeout;
-  this.retryAssertionTimeout = 500;
+  this.retryAssertionTimeout = -1;
   let actualViolations;
   let axeViolationsPerElement = '';
-  // If the custom commands operates with DOM elements, this options should be set
-  // this.options = {
-  //   elementSelector: true
-  // };
-  // const expectedViolations = 0;
+
   /**
    * Returns the message format which will be used to output the message in the console and also
    *  the arguments which will be used for replace the place holders, used in the order of appearance
@@ -24,8 +20,12 @@ exports.assertion = function (
     // Use this.negate to determine if ".not" is in use
     // Example:
     const message = `Testing if elements within <${selector}> ${
-      this.negate ? 'contain' : `don't contain more than ${expectedViolations}`
-    } accessibility rule violations`;
+      this.negate
+        ? 'contain'
+        : `don't contain${
+            expectedViolations === 0 ? '' : ` more than ${expectedViolations}`
+          } accessibility rule violations`
+    }`;
 
     return {
       message,
@@ -92,21 +92,36 @@ exports.assertion = function (
    * The command which is to be executed by the assertion runner; Nightwatch api is available as this.api
    * @param {function} callback
    */
-  this.command = async (callback) => {
-    const axeResults = await this.api.axeRun(selector, options);
+  this.command = (callback) => {
+    this.api.perform(async () => {
+      const axeResults = await this.api.axeRun(selector, {
+        ...options,
+        runAssertions: false,
+      });
 
-    axeViolationsPerElement = axeResults.violations
-      .flatMap((violation) =>
-        violation.nodes.map((node) => {
-          let nodeName = node.target.toString();
-          if (nodeName.length > 100) {
-            nodeName = `...${nodeName.slice(-100)}`;
-          }
-          return `\r\n   aXe rule [${violation.impact}]: ${violation.id} - ${violation.help} [${violation.helpUrl}]\r\n\tIn element: ${nodeName}`;
-        })
-      )
-      .join('');
+      // For informative logging of passes when passing
+      if (axeResults && axeResults.passes && axeResults.violations) {
+        axeResults.passes.forEach((pass) => {
+          this.api.assert.ok(
+            true,
+            `aXe rule: ${pass.id} (${pass.nodes.length} elements checked)`
+          );
+        });
 
-    callback({ value: axeResults });
+        axeViolationsPerElement = axeResults.violations
+          .flatMap((violation) =>
+            violation.nodes.map((node) => {
+              let nodeName = node.target.toString();
+              if (nodeName.length > 100) {
+                nodeName = `...${nodeName.slice(-100)}`;
+              }
+              return `\r\n   aXe rule [${violation.impact}]: ${violation.id} - ${violation.help} [${violation.helpUrl}]\r\n\tIn element: ${nodeName}`;
+            })
+          )
+          .join('');
+      }
+
+      callback({ value: axeResults });
+    });
   };
 };
