@@ -25,7 +25,7 @@ In nightwatch.conf.js add `nightwatch-axe-verbose` to the plugins property array
 ```js
 {
   // See https://nightwatchjs.org/guide/extending-nightwatch/adding-plugins.html
-  plugins: ['nightwatch-axe-verbose'];
+  plugins: ['nightwatch-axe-verbose']
 }
 ```
 
@@ -63,6 +63,7 @@ module.exports = {
             })
             .end();
     }
+};
 ```
 
 ## Example output
@@ -122,7 +123,7 @@ If no parameter inputs are supplied to .axeRun() it will default to the `html` c
 
 axeRun can read the selector context and/or run options from the Nightwatch globals collection so that they don't need to be passed in during each test if you have a globally applicable customized non-default scanning preference. These settings are expected under `axeSettings` and can contain `context` and/or `options` properties containing axe-core context and option settings respectively.
 
-If a selector context is passed in to axeRun by the test it will override, take precedence over, the global setting. Global option properties not supplied by the test will be merged together with the ones provides by the test. The test-supplied value will be used in the case of same-named properties.
+If a selector context is passed in to axeRun by the test it will override, take precedence over, the global setting. Global option properties not supplied by the test will be merged together with the ones provided by the test. The test-supplied value will be used in the case of same-named properties.
 
 ```js
 // nightwatch.conf.js
@@ -131,6 +132,11 @@ test_settings: {
         globals: {
                 axeSettings: {
                         context: 'html',
+                        options: {
+                                rules: {
+                                        'color-contrast': { enabled: false },
+                                },
+                        },
                 }
         }
     }
