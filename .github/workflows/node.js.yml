@@ -20,13 +20,12 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      - uses: browser-actions/setup-chrome@v1
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
-      - run: npm install chromedriver
+      - run: DETECT_CHROMEDRIVER_VERSION=true npm install chromedriver
       - run: npm install
       - run: npm run lint
       - run: npm test
