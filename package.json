@@ -25,7 +25,7 @@
   "bugs": {
     "url": "https://github.com/reallymello/nightwatch-axe-verbose/issues"
   },
-  "homepage": "https://github.com/reallymello/nightwatch-axe-verbose#readme",
+  "homepage": "https://www.davidmello.com/open-source/nightwatch-axe-verbose",
   "overrides": {
     "minimatch@^3.0.0": "3.1.5",
     "serialize-javascript": "7.0.4"
